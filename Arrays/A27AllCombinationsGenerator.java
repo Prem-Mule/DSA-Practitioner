@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AllCombinationsGenerator {
+public class A27AllCombinationsGenerator {
 
     /**
      * Generates all combinations of size r using backtracking.
