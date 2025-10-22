@@ -32,6 +32,13 @@ public class A12ProductExceptSelf {
         return result;
     }
 
+    /**
+     * Approach 3: Prefix and Suffix arrays
+     * Complexity: O(n)
+     * Space Complexity: O(n)
+     * Handles zeros correctly.
+     */
+
     public static int[] productExceptSelf3(int[] arr) {
         int[] prefProduct = new int[arr.length];
         int[] suffProduct = new int[arr.length];
@@ -49,6 +56,13 @@ public class A12ProductExceptSelf {
         }
         return result;
     }
+
+    /**
+     * Approach 4: Handles zeros explicitly
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
+     * Best for arrays with zeros.
+     */
 
     public static int[] productExceptSelf4(int[] arr) {
         int result[] = new int[arr.length];
@@ -76,21 +90,30 @@ public class A12ProductExceptSelf {
     }
 
     public static void main(String[] args) {
+
         int[] arr = { 1, 2, 3, 4 };
-        for (int a : productExceptSelf(arr)) {
-            System.out.print(" " + a);
+
+        System.out.println("Original Array:");
+        printArray(arr);
+
+        System.out.println("\nApproach 1 (Division):");
+        printArray(productExceptSelf(arr));
+
+        System.out.println("\nApproach 2 (Brute Force):");
+        printArray(productExceptSelf2(arr));
+
+        System.out.println("\nApproach 3 (Prefix & Suffix):");
+        printArray(productExceptSelf3(arr));
+
+        System.out.println("\nApproach 4 (Handles Zeros):");
+        printArray(productExceptSelf4(arr));
+    }
+
+    public static void printArray(int[] arr) {
+        System.out.print("[ ");
+        for (int num : arr) {
+            System.out.print(num + " ");
         }
-        System.out.println("\n************************");
-        for (int a : productExceptSelf2(arr)) {
-            System.out.print(" " + a);
-        }
-        System.out.println("\n************************");
-        for (int a : productExceptSelf3(arr)) {
-            System.out.print(" " + a);
-        }
-        System.out.println("\n************************");
-        for (int a : productExceptSelf4(arr)) {
-            System.out.print(" " + a);
-        }
+        System.out.println("]");
     }
 }

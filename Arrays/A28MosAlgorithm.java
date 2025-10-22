@@ -41,7 +41,6 @@ public class A28MosAlgorithm {
             }
         });
 
-        System.out.println(queries.get(2).left);
         // Initialize pointers and current sum
         int currentLeft = 0;
         int currentRight = 0; // NOTE: This should ideally start at -1 for empty range

@@ -1,4 +1,17 @@
 public class A9RepeatingMissingNumber {
+    public static void printArray(int[] arr) {
+        System.out.print("[ ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println("]");
+    }
+
+    /**
+     * Swap two elements in the array without using a temporary variable.
+     * Time Complexity: O(1)
+     * Space Complexity: O(1)
+     */
     public static void helperSwap(int[] arr, int a, int b) {
         if (a != b) {
             arr[a] = arr[a] + arr[b];
@@ -7,6 +20,10 @@ public class A9RepeatingMissingNumber {
         }
     }
 
+    /**
+     * Partition method for QuickSort.
+     * Time Complexity: O(n) for partition step.
+     */
     public static int partition(int[] arr, int left, int right) {
         int i = left - 1;
         int pivot = arr[right];
@@ -20,6 +37,11 @@ public class A9RepeatingMissingNumber {
         return i + 1;
     }
 
+    /**
+     * QuickSort implementation.
+     * Time Complexity: O(n log n) average case.
+     * Space Complexity: O(log n) due to recursion.
+     */
     public static int[] quickSort(int[] arr, int start, int end) {
         if (start < end) {
             int p = partition(arr, start, end);
@@ -29,33 +51,43 @@ public class A9RepeatingMissingNumber {
         return arr;
     }
 
-    public static int[] findRepeating_MissingNumber1(int[] arr) {
-        int[] result = new int[2];
-        int a = arr[0];
+    /**
+     * Approach 1: After sorting, find missing and repeating numbers.
+     * Time Complexity: O(n log n) (due to sorting)
+     * Space Complexity: O(1)
+     */
+    public static int[] findRepeatingMissingNumberSorted(int[] arr) {
+        int[] result = new int[2]; // [missing, repeating]
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] == arr[i + 1]) {
-                result[1] = arr[i];
+                result[1] = arr[i]; // repeating
             }
             if (arr[i + 1] - arr[i] > 1) {
-                result[0] = (arr[i] + 1);
+                result[0] = arr[i] + 1; // missing
             }
-
         }
         return result;
     }
 
-    public static int[] findRepeating_MissingNumber2(int[] arr) {
+    /**
+     * Approach 2: Using frequency count.
+     * Time Complexity: O(n)
+     * Space Complexity: O(n)
+     */
+    public static int[] findRepeatingMissingNumberCount(int[] arr) {
         int[] count = new int[arr.length];
-        int[] result = new int[2];
-        for (int a : arr) {
-            count[a - 1]++;
+        int[] result = new int[2]; // [missing, repeating]
+
+        for (int num : arr) {
+            count[num - 1]++;
         }
-        for (int a = 0; a < count.length; a++) {
-            if (count[a] == 0) {
-                result[0] = a + 1;
+
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] == 0) {
+                result[0] = i + 1; // missing
             }
-            if (count[a] > 1) {
-                result[1] = a + 1;
+            if (count[i] > 1) {
+                result[1] = i + 1; // repeating
             }
         }
         return result;
@@ -63,19 +95,25 @@ public class A9RepeatingMissingNumber {
 
     public static void main(String[] args) {
         int[] arr = { 1, 2, 2, 3, 5 };
-        int[][] arr1 = { { 3, 4, 5 }, { 5, 1, 4 } };
 
-        for (int a : findRepeating_MissingNumber1(arr)) {
-            System.out.print(a + " ");
-        }
-        int[] count = new int[arr1.length * arr1[0].length];
-        for (int a = 0; a < arr1.length; a++) {
-            for (int b = 0; b < arr1[a].length; b++) {
-                // System.out.println("d " + arr1[a][b]);
-            }
-        }
-        for (int a : findRepeating_MissingNumber2(arr)) {
-            System.out.print(a + " ");
-        }
+        System.out.println("Original Array:");
+        printArray(arr);
+
+        // Sort array for first approach
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println("\nSorted Array:");
+        printArray(arr);
+
+        int[] result1 = findRepeatingMissingNumberSorted(arr);
+        System.out.println("\nApproach 1 (Sorted): Missing = " + result1[0] + ", Repeating = " + result1[1]);
+
+        int[] arr2 = { 1, 2, 2, 3, 5 };
+        int[] result2 = findRepeatingMissingNumberCount(arr2);
+        System.out.println("Approach 2 (Count): Missing = " + result2[0] + ", Repeating = " + result2[1]);
     }
+
+    /**
+     * Utility method to print array in readable format.
+     */
+
 }
