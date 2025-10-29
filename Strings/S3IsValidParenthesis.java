@@ -21,30 +21,38 @@ public class S3IsValidParenthesis {
                 a.add(c);
             }
         }
-
+        if (!a.isEmpty()) {
+            return false;
+        }
         return true;
     }
 
     public static boolean isValidParenthesis2(String s) {
         char[] cArray = new char[s.length()];
-        int index = 0;
+        int index = -1;
         for (char c : s.toCharArray()) {
             if (c == '(' || c == '[' || c == '{') {
-                cArray[index++] = c;
+                cArray[++index] = c;
             } else {
-                if (index == 0) {
+                if (index < 0) {
                     return false;
                 }
-                if (c == ']' && cArray[index - 1] != '[') {
+                if (c == ']' && cArray[index] != '[') {
                     return false;
-                } else if (c == '}' && cArray[index - 1] != '{') {
+                } else if (c == '}' && cArray[index] != '{') {
                     return false;
-                } else if (c == ')' && cArray[index - 1] != '(') {
+                } else if (c == ')' && cArray[index] != '(') {
                     return false;
+                } else {
+
+                    index--;
                 }
             }
         }
-        return true;
+        if (index <= 0) {
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
